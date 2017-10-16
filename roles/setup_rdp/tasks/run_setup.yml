@@ -1,0 +1,15 @@
+---
+- name: Create installer dir
+  win_file: path="{{ win_altiris.installerdir }}" state=directory
+
+- name: Download Altiris package
+  win_get_url: 
+    url: "{{ win_altiris.agent_download_url }}"
+    dest: "{{ win_altiris.installerdir }}\\altiris_installer.zip"
+
+- name: Expand Altiris Archive
+  script: ../../../scripts/extract_agentpkg.ps1 -sourcePath "{{ win_altiris.installerdir }}\\altiris_installer.zip" -dest "{{ win_altiris.installerdir }}"
+
+- name: Install Altiris Agent
+  script: ../scripts/install_agent.ps1 -installerdir "{{ win_altiris.installerdir }}\\installer" -notificationServer "{{ win_altiris.notification_server }}" -notificationWeb "win_altiris.notification_web"
+

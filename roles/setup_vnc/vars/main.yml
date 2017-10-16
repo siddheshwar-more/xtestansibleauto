@@ -1,0 +1,10 @@
+---
+
+python:
+  version: 2.7
+
+win_vnc:
+  installerdir: ""
+  agent_download_url: ""
+  vnc_pkgname: ""
+

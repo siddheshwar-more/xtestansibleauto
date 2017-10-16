@@ -1,0 +1,11 @@
+---
+
+python:
+  version: 2.7
+
+win_altiris:
+  installerdir: ""
+  agent_download_url: ""
+  notification_server: ""
+  notification_web: ""
+

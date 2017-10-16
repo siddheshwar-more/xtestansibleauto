@@ -1,0 +1,8 @@
+---
+
+- hosts: windows
+  become: false
+  roles:
+    - setup_rdp
+    - setup_vnc
+

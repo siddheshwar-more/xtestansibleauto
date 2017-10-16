@@ -1,0 +1,6 @@
+---
+
+- include_vars: vars/main.yml
+
+- include: run_setup.yml
+

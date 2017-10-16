@@ -1,0 +1,15 @@
+---
+- name: Create installer dir
+  win_file: path="{{ win_vnc.installerdir }}" state=directory
+
+- name: Download VNC package
+  win_get_url: 
+    url: "{{ win_vnc.agent_download_url }}"
+    dest: "{{ win_vnc.installerdir }}\\vnc_installer.zip"
+
+- name: Expand VNC Archive
+  script: ../../../scripts/extract_agentpkg.ps1 -sourcePath "{{ win_vnc.installerdir }}\\vnc_installer.zip" -dest "{{ win_vnc.installerdir }}"
+
+- name: Install VNC Agent
+  script: ../scripts/install_agent.ps1 -installerdir "{{ win_vnc.installerdir }}\\installer" -vncPkgName "{{ win_vnc.vnc_pkgname }}"
+
