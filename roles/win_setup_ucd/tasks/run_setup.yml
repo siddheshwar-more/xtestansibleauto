@@ -1,0 +1,42 @@
+---
+- name: Create installer dir
+  win_file: path="{{ win_ucd.installerdir }}" state=directory
+
+- name: Download Java package
+  win_uri:
+    url: "{{ win_ucd.java_download_url }}"
+    dest: "{{ win_ucd.installerdir }}\\jre.zip"
+    method: GET
+    headers:
+      
+
+# Use below If url contains the creds-as query params
+#- name: Download Java package
+#  win_get_url: 
+#    url: "{{ win_ucd.java_download_url }}"
+#    dest: "{{ win_ucd.installerdir }}\\jre.zip"
+
+- name: Install Java 
+  script: ../scripts/install_java.ps1 -javaPkgPath "{{ win_ucd.installerdir }}\\jre.zip" -installerDir "{{ win_ucd.installerdir }}"
+
+
+- name: Download UCD package
+  win_uri:
+    url: "{{ win_ucd.agent_download_url }}"
+    dest: "{{ win_ucd.installerdir }}\\ucd.zip"
+    method: GET
+    headers:
+
+
+# Use below If url contains the creds-as query params
+#- name: Download UCD package
+ # win_get_url:
+  #  url: "{{ win_ucd.agent_download_url }}"
+   # dest: "{{ win_ucd.installerdir }}\\ucd.zip"
+
+- name: Expand UCD Archive
+  script: ../../../scripts/extract_agentpkg.ps1 -sourcePath "{{ win_ucd.installerdir }}\\ucd.zip" -dest "{{ win_ucd.installerdir }}"
+
+- name: Install UCD Agent
+  script: ../scripts/install_agent.ps1 -installerdir "{{ win_ucd.installerdir }}\\installer"
+

@@ -1,0 +1,15 @@
+---
+
+python:
+  version: 2.7
+
+win_ucd:
+  installerdir: ""
+  agent_download_url: ""
+  java_download_url: ""
+
+repo_url: ""
+repo_dest_path: ""
+git_ssh_key: ""
+
+

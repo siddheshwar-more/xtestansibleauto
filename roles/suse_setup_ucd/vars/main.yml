@@ -1,0 +1,14 @@
+---
+
+python:
+  version: 2.7
+
+suse_ucd:
+  installerdir: "/tmp"
+  agent_download_url: ""
+  java_download_url: ""
+
+repo_url: ""
+repo_dest_path: ""
+git_ssh_key: ""
+

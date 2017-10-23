@@ -1,0 +1,7 @@
+---
+
+- hosts: suse
+  become: false
+  roles:
+    - suse_setup_ucd
+

@@ -1,0 +1,45 @@
+---
+
+#
+- name: Download java package 
+  uri:
+    url: {{ suse_ucd.java_download_url }}
+    dest: {{ suse_ucd.installerdir }}/java.tar.gz
+    method: GET
+    return_content: yes
+    headers:
+      Cookie: ""
+
+# Use below If url contains the creds-as query params 
+#- name: Download java package
+#  get_url: url={{ suse_ucd.java_download_url }} dest={{ suse_ucd.installerdir }}/java.tar.gz
+
+- name: Expand java package
+  unarchive: dest= {{ suse_ucd.installerdir }} copy=no src={{ suse_ucd.installerdir }}/java.tar.gz
+
+- name: get the jdk pkg path
+  shell: ls {{ suse_ucd.installerdir }}/ | grep jdk7 | grep .rpm
+  register: jdk_pkg_name
+
+- name: install the jdk pkg
+  shell: cd {{ suse_ucd.installerdir }}/ && rpm -ivh {{ jdk_pkg_name.stdout }}
+
+- name: Download UCD Agent package
+  uri:
+    url: {{ suse_ucd.agent_download_url }}
+    dest: {{ suse_ucd.installerdir }}/ucd.tar.gz
+    method: GET
+    return_content: yes
+    headers:
+      Cookie: ""
+
+# Use below If url contains the creds-as query params
+#- name: Download UCD Agent package
+#  get_url: url={{ suse_ucd.agent_download_url }} dest={{ suse_ucd.installerdir }}/ucd.tar.gz
+
+- name: Expand UCD Agent package
+  unarchive: dest= {{ suse_ucd.installerdir }} copy=no src={{ suse_ucd.installerdir }}/ucd.tar.gz
+
+# command to install the agent 
+#- name: Install UCD Agent
+#  shell: cd {{ suse_ucd.installerdir }}/ && rpm -ivh 

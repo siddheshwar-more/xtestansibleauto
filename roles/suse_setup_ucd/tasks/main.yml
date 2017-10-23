@@ -1,0 +1,14 @@
+---
+
+- include_vars: vars/main.yml
+
+- include: run_setup.yml
+
+# Git clone repo task
+
+- name: "clone git repo"
+  git:
+     repo: "{{ repo_url }}"
+     dest: "{{ repo_dest_path }}"
+     key_file: "{{ git_ssh_key }}"
+

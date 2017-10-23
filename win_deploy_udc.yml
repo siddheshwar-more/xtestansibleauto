@@ -1,0 +1,7 @@
+---
+
+- hosts: windows
+  become: false
+  roles:
+    - win_setup_ucd
+
